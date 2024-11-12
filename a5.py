@@ -139,7 +139,17 @@ class Board:
             column - index of the column to assign
             assignment - value to place at given row, column coordinate
         """
-        pass
+        self.rows[row][column] = assignment
+
+        for i in range(self.size):
+            # remove the assignment from the row
+            remove_if_exists(self.rows[row][i], assignment)
+            # remove the assignment from the column
+            remove_if_exists(self.rows[i][column], assignment)
+
+        print(self.subgrid_coordinates(row, column))
+        for i, j in self.subgrid_coordinates(row, column):
+            remove_if_exists(self.rows[i][j], assignment)
 
 
 def DFS(state: Board) -> Board:
@@ -325,4 +335,17 @@ if __name__ == "__main__":
     # print("<<<<<<<<<<<<<< Testing BFS on Second Game >>>>>>>>>>>>>>")
 
     # test_dfs_or_bfs(False, second_moves)
-    pass
+    b = Board()
+    print(b)
+    b.print_pretty()
+    b.update(0, 0, 1)
+    b.update(0, 0, 2)
+    b.update(1, 0, 9)
+    b.update(1, 1, 8)
+    b.update(0, 4, 3)
+    b.update(1, 3, 2)
+    b.print_pretty()
+
+    
+
+    
